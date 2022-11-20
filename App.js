@@ -3,6 +3,8 @@ import React from 'react';
 import type {Node} from 'react';
 import Pantallalogin from './Pantallalogin';
 import PantallaInicio from './PantallaInicio';
+import PantallaBuscar from './PantallaBuscar';
+import PantallaInfoLibro from './PantallaInfoLibro';
 //import Pantallx from './pantallx';
 import { NavigationContainer } from '@react-navigation/native';
 import PantallaNueva from './PantallaNueva';
@@ -65,8 +67,10 @@ const App: () => Node = () => {
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="Pantallalogin" component={Pantallalogin} />
-      <Stack.Screen name="PantallaInicio" component={PantallaInicio} />
+      <Stack.Screen name="Pantallalogin" component={Pantallalogin} options={{headerShown: false}}/>
+      <Stack.Screen name="PantallaInicio" component={PantallaInicio} options={{headerShown: false}}/>
+      <Stack.Screen name="PantallaBuscar" component={PantallaBuscar} options={{headerShown: false}}/>
+      <Stack.Screen name="PantallaInfoLibro" component={PantallaInfoLibro} options={{headerShown: false}}/>
     </Stack.Navigator>
   </NavigationContainer>
   
