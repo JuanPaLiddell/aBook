@@ -1,13 +1,13 @@
 
 import React from 'react';
 import type {Node} from 'react';
+//IMPORTACION DE LAS INTERFACES
 import Pantallalogin from './Pantallalogin';
 import PantallaInicio from './PantallaInicio';
-import PantallaBuscar from './PantallaBuscar';
 import PantallaInfoLibro from './PantallaInfoLibro';
-//import Pantallx from './pantallx';
+import PantallaCrearCuenta from './PantallaCrearCuenta';
+//PARA LA NAVEGACION ENTRE LAS INTERFACES
 import { NavigationContainer } from '@react-navigation/native';
-import PantallaNueva from './PantallaNueva';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
@@ -69,8 +69,8 @@ const App: () => Node = () => {
     <Stack.Navigator>
       <Stack.Screen name="Pantallalogin" component={Pantallalogin} options={{headerShown: false}}/>
       <Stack.Screen name="PantallaInicio" component={PantallaInicio} options={{headerShown: false}}/>
-      <Stack.Screen name="PantallaBuscar" component={PantallaBuscar} options={{headerShown: false}}/>
       <Stack.Screen name="PantallaInfoLibro" component={PantallaInfoLibro} options={{headerShown: false}}/>
+      <Stack.Screen name="PantallaCrearCuenta" component={PantallaCrearCuenta} options={{headerShown: false}}/>
     </Stack.Navigator>
   </NavigationContainer>
   

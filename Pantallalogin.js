@@ -24,11 +24,19 @@ export default class Pantallalogin extends Component {
         console.log("MENU DE OPCIONES")
       }
 
+      const btnCreateAccount= () => {
+        console.log("CREANDO UNA NUEVA CUENTA")
+        this.props.navigation.navigate("PantallaCrearCuenta")
+      }
+
     return (
       <View style={styles.container}> 
 
-        <View style={styles.body}>    
-        <Button title='opciones' onPress = {options} color="gray"/>
+        <View style={styles.body}>
+          <View style = {styles.optionButton}>
+            <Button title='opciones' onPress = {options} color="#7268D9"/>
+            </View>
+
         <Text style={styles.TituloApp}> 
         aBook 
         </Text>
@@ -36,6 +44,11 @@ export default class Pantallalogin extends Component {
         </View>                   
 
         <View style={styles.header}>
+
+          <Text style={styles.textInicioSesion}>
+            Inicio de sesión
+          </Text>
+        
         <TextInput style={styles.inputUser}
         placeholder = {'Nombre de Usuario'} 
         onChangeText={usrName => this.setState({usrName})}>
@@ -48,21 +61,46 @@ export default class Pantallalogin extends Component {
         </TextInput>
 
         <View style = {styles.loginButton}>
-        <Button title='Entrar' onPress = {btnClick} color="gray"></Button>
+        <Button title='Entrar' onPress = {btnClick} color="#7268D9"></Button>
+        </View>
+
+        <Text style = {styles.textDEF}>
+          ¿No tienes una cuenta aun?
+        </Text>
+
+        <View style = {styles.CreateAccountButton}>
+          <Button title='Crea una cuenta' onPress = {btnCreateAccount} color="#7268D9"></Button>
         </View>
 
         </View>
-        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+textDEF:{
+  fontFamily: 'arial',
+  fontSize: 20,
+  marginTop: 15,
+  fontWeight: 'bold',
+  color: '#2D4D71', 
+},
+
+textInicioSesion:{
+  fontFamily: 'arial',
+  fontSize: 40,
+  marginTop: 100,
+  marginBottom: 10,
+  //fontWeight: 'bold',
+  color: 'black',
+},
+
 TituloApp:{
 fontFamily: 'times new roman',
-marginLeft: 70,
-fontSize: 40,
-color: 'white',
+marginLeft: 40, 
+fontSize: 50,
+color: '#A0ADC7',
 marginTop: 15 ,
 },
 
@@ -75,26 +113,26 @@ body:{
   flex: .9,
   flexDirection: 'row',
   alignItems: 'flex-start',
-  backgroundColor: 'purple',
+  backgroundColor: '#7242A4',
   },
 
   header:{
     alignItems: 'center',
     flex:6,
-    backgroundColor: 'blue',
+    backgroundColor: '#232150',
     },
 
     inputUser: {
-      backgroundColor: 'white',
+      backgroundColor: '#A0ADC7',
       textAlign: 'left',
       borderWidth: 2,
       width: 300,
       fontSize: 25,
-      marginTop: 100,
+      marginTop: 0,
     },
 
     inputPasswd: {
-      backgroundColor: 'white',
+      backgroundColor: '#A0ADC7',
       textAlign: 'left',
       borderWidth: 2,
       width: 300,
@@ -105,7 +143,6 @@ body:{
     loginButton: {
         width: 100,
         height: 50,
-       // borderWidth: 1,
         marginLeft: 30,
         marginTop: 10,
     },
@@ -114,13 +151,22 @@ body:{
       width: 90,
       height: 100,
       resizeMode: 'contain',
-      marginLeft: 50,
+      marginLeft: 30,
       marginTop: -15,
   },
 
   optionButton: {
-    width: 25,
-    height: 25,
+    alignSelf: 'center',
+    width: 90,
+    height: 50,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 0,
+  },
+
+  CreateAccountButton:{
+    width: 150,
+    height: 50,
     marginLeft: 30,
     marginTop: 10,
   }
