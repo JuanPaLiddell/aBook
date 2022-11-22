@@ -14,10 +14,27 @@ export default class Pantallalogin extends Component {
   }
 
   render() {
+    const navigation = this.context
       //Programacion de los botones:
       const btnClick = () => {
-        console.log("CLICKEASTE EL BOTON")
-        this.props.navigation.navigate("PantallaInicio")
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // Typical action to be performed when the document is ready:
+                console.log(xhttp.responseText);
+                if(isNaN(parseInt(xhttp.responseText)) ){
+                  console.log("No es un usuario en tu DB")
+                  alert("El usuario o contraseña que ingresaste no son correctos");
+                }
+                else{
+                  navigation.navigate("PantallaInicio")
+                }
+            
+            }
+        };
+        xhttp.open("GET", "https://jpswebsite.000webhostapp.com/aBook/RegistroUsuarios.php?username="+this.state.usrName+"&Userpasswd="+this.state.passwd, true);
+        xhttp.send();
+        navigation.navigate("Pantallalogin")
       }
 
       const options = () => {
@@ -170,6 +187,5 @@ body:{
     marginLeft: 30,
     marginTop: 10,
   }
-
 });
 

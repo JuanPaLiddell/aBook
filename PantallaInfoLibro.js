@@ -12,8 +12,8 @@ export default class PantallaInfoLibro extends Component {
 
   render() {
     const SolicitaPrest1= () => {
-      console.log("Solicitando prestamo")
-      //this.props.navigation.navigate("Pantallalogin")
+      console.log("Solicitando prestamo.")
+      this.props.navigation.navigate("PantallaSolictudPrestamo")
     }
 
     const SolicitaPrest2= () => {

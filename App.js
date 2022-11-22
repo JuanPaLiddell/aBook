@@ -6,6 +6,7 @@ import Pantallalogin from './Pantallalogin';
 import PantallaInicio from './PantallaInicio';
 import PantallaInfoLibro from './PantallaInfoLibro';
 import PantallaCrearCuenta from './PantallaCrearCuenta';
+import PantallaSolictudPrestamo from './PantallaSolictudPrestamo';
 //PARA LA NAVEGACION ENTRE LAS INTERFACES
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -71,6 +72,7 @@ const App: () => Node = () => {
       <Stack.Screen name="PantallaInicio" component={PantallaInicio} options={{headerShown: false}}/>
       <Stack.Screen name="PantallaInfoLibro" component={PantallaInfoLibro} options={{headerShown: false}}/>
       <Stack.Screen name="PantallaCrearCuenta" component={PantallaCrearCuenta} options={{headerShown: false}}/>
+      <Stack.Screen name="PantallaSolictudPrestamo" component={PantallaSolictudPrestamo} options={{headerShown: false}}/>
     </Stack.Navigator>
   </NavigationContainer>
   
