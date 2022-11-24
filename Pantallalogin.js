@@ -22,19 +22,19 @@ export default class Pantallalogin extends Component {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
               console.log("Ingresando usuario")
-                // Typical action to be performed when the document is ready:
-                console.log(xhttp.responseText);
-                if(isNaN(parseInt(xhttp.responseText)) ){
+              console.log(xhttp.responseText);
+              if(xhttp.responseText==="no hay datos"){
                   console.log("No es un usuario en tu DB")
                   Alert.alert(
                     "error",
                     "usuario o contraseña incorrectos",
                     [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-                  );
+                    );
                 }
                 else{
-                 // navigation.navigate("PantallaInicio", {paramKey: usrName,}) ERROR AL PASAR LA VARIABLE
-                 navigation.navigate("PantallaInicio")
+                  let recibe = xhttp.responseText;
+                  let datos = recibe.split(",");
+                 navigation.navigate("PantallaInicio", {idLOGED: datos[0], logedNAME: datos[1]})
                 }
             
             }

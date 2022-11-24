@@ -14,8 +14,13 @@ export default class PantallaInicio extends Component {
 
   render() {
     const navigation = this.context
+
     //Programacion de los botones
     const btnBuscar = () => {
+      console.log("ID DEL USUARIO LOGEADO: ", this.props.route.params.idLOGED)
+      console.log("NOMBRE DEL USUARIO LOGEADO: ", this.props.route.params.logedNAME)
+      let idLOGED = this.props.route.params.idLOGED;
+      let logedNAME = this.props.route.params.logedNAME;
       if(this.state.titulo===""){
         Alert.alert(
           "Error",
@@ -25,8 +30,32 @@ export default class PantallaInicio extends Component {
 
       }
       else {
-        navigation.navigate("PantallaInfoLibro")
-        //console.log(this.props.route.params.paramKey)
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              console.log("BUSCANDO LIBRO")
+                //console.log(xhttp.responseText);
+                if(xhttp.responseText==="NO HAY DATOS"){
+                  console.log("LIBRO NO ENCONTRADO")
+                  Alert.alert(
+                    "error",
+                    "No se encontro el libro.",
+                    [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+                  );
+                }
+                else{
+                  let recibe = xhttp.responseText;
+                  let datos = recibe.split("|");
+                  
+                  console.log(datos[0]," ",datos[1]," ",datos[2]," ",datos[3]," ",datos[4]," ",datos[5])
+                  navigation.navigate("PantallaInfoLibro", {idLOGED: idLOGED, logedNAME:logedNAME, id_libro: datos[0], isbn: datos[1], titulo: datos[2], autor: datos[3], edit: datos[4], descrip: datos[5], dispo: datos[6]})
+                }
+            
+            }
+        };
+        xhttp.open("GET", "https://jpswebsite.000webhostapp.com/aBook/getLibro.php?tittle="+this.state.titulo, true);
+        xhttp.send();
+        
       }
     }
 
@@ -34,7 +63,7 @@ export default class PantallaInicio extends Component {
       <View style = {styles.ScreenContainer}>
       <View style = {styles.headerContainer}>
       <Text style = {styles.TextoEncabezado}>
-        Bienvenido Usuario 
+        Bienvenido {this.props.route.params.logedNAME} 
         </Text>
           <Image style = {styles.userIcon} source={require('./imagenes/userICON.png')} />
       </View>
@@ -45,11 +74,13 @@ export default class PantallaInicio extends Component {
         </TextInput>
 
           <View style={styles.buttonS}>
-            <Button title='Entrar' onPress = {btnBuscar} color="black"></Button>
+            <Button title='Buscar' onPress = {btnBuscar} color="black"></Button>
           </View>
 
           <View style={styles.pieDePagina}>
-
+            <Text style = {styles.TextoEncabezado}>
+              Historial de libros pedidos:
+            </Text>
           </View>
 
       </View>
@@ -63,18 +94,21 @@ ScreenContainer: {
   flex: 1,
   flexDirection: 'column',
   backgroundColor: '#7268D9',
+  alignItems: 'center'
 },
 
 headerContainer:{
-  flex: .15,
+  flex: .20,
   flexDirection: 'row',
   backgroundColor: '#7242A4',
   alignItems: 'center',
 },
 
 TextoEncabezado:{
+marginLeft: 20,
 fontFamily: 'arial',
 fontSize: 25,
+flex:1.5,
 },
 
 buttonS:{
@@ -87,11 +121,12 @@ buttonS:{
 },
 
 userIcon:{
+      flex:.5,
       width: 80,
       height: 90,
       resizeMode: 'contain',
       alignContent: 'flex-end',
-      marginLeft: 100,
+      marginRight: 2,
 },
 
 inputs:{
@@ -106,10 +141,11 @@ inputs:{
   },
 
   pieDePagina:{
-    flex: .20,
+  flex: .75,
   flexDirection: 'row',
   backgroundColor: '#7242A4',
-  //alignSelf: 'center',
+  width: 350,
+  height: 30,
   },
 
 });
