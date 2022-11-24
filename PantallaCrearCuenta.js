@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Alert } from 'react-native';
 import { NavigationContext, useNavigation } from '@react-navigation/native';
 
 export default class PantallaCrearCuenta extends Component {
@@ -16,10 +16,32 @@ export default class PantallaCrearCuenta extends Component {
   }
 
   render() {
+    const navigation = this.context
+//PROGRAMACION DEL BOTON PARA ENVIAR LA INFO DEL USUARIO A LA DB  
     const EnviarInfAccount = () => {
         console.log("INFORMACION ENVIADA PARA EL REGISTRO EN LA DB")
-        this.props.navigation.navigate("Pantallalogin")
+        if(this.state.nombre_completo==="" || this.state.nombre_usuario==="" || this.state.Contraseña==="" || this.state.email==="" || this.state.telefono===""){
+            console.log("ALGUN ESPACIO ESTA VACIO")
+            Alert.alert(
+              "Error",
+              "Algun campo esta vacio, por favor llena todos los campos.",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+            );
+        }else{
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                //console.log("EVIANDO DATOS DE NUEVA CUENTA")
+                  console.log(xhttp.responseText);
+                    navigation.navigate("Pantallalogin")
+              }
+          };
+          xhttp.open("GET", "https://jpswebsite.000webhostapp.com/aBook/crearCuenta.php?name="+this.state.nombre_completo+"&username="+this.state.nombre_usuario+"&passwd="+this.state.Contraseña+"&email="+this.state.email+"&phoneNum="+this.state.telefono, true);
+          xhttp.send();
+        }
       }
+
+
     return (
       <View style = {styles.containerPrincipal}>
         <Text style = {styles.textTittle}>
@@ -64,7 +86,7 @@ export default class PantallaCrearCuenta extends Component {
 
 
         <View style = {styles.buttonSendInfo}>
-            <Button title='Enviar informacion' onPress = {EnviarInfAccount} color="#4A5598"></Button>
+            <Button title='Enviar informacion' onPress = {EnviarInfAccount} color="#7242A4"></Button>
         </View>
       </View>
     );
@@ -75,14 +97,14 @@ const styles = StyleSheet.create({
     containerPrincipal: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#4A7C98',
+    backgroundColor: '#4367BB',
     },
 
     textTittle: {
     fontFamily: 'times new roman',
     fontWeight: 'bold',
     fontSize: 28,
-    color: '#674A98',
+    color: '#232150',
     marginTop: 15 ,
     marginBottom: 40,
     },
@@ -96,6 +118,7 @@ const styles = StyleSheet.create({
 
     inputs:{
     backgroundColor: '#A0ADC7',
+    borderColor: '#7242A4',
     borderWidth: 2,
     height: 50,
     width: 350,

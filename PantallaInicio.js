@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,Button,StyleSheet, Image, TextInput } from 'react-native';
+import { View, Text,Button,StyleSheet, Image, TextInput, Alert, Route } from 'react-native';
 import { NavigationContext, useNavigation } from '@react-navigation/native';
 
 export default class PantallaInicio extends Component {
@@ -13,13 +13,22 @@ export default class PantallaInicio extends Component {
   }
 
   render() {
+    const navigation = this.context
     //Programacion de los botones
     const btnBuscar = () => {
-      console.log("Pantalla para buscar libros")
-      this.props.navigation.navigate("PantallaInfoLibro")
+      if(this.state.titulo===""){
+        Alert.alert(
+          "Error",
+          "Ingresa el titulo de algun libro para poder hacer a busqueda.",
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+        );
+
+      }
+      else {
+        navigation.navigate("PantallaInfoLibro")
+        //console.log(this.props.route.params.paramKey)
+      }
     }
-
-
 
     return (
       <View style = {styles.ScreenContainer}>

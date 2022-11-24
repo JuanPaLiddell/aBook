@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Image,TextInput,Button, ImageBackground} from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Button, Alert} from 'react-native';
 import { NavigationContext, useNavigation } from '@react-navigation/native';
 
 export default class Pantallalogin extends Component {
@@ -17,17 +17,24 @@ export default class Pantallalogin extends Component {
     const navigation = this.context
       //Programacion de los botones:
       const btnClick = () => {
+        console.log("Ingresando usuario")
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+              console.log("Ingresando usuario")
                 // Typical action to be performed when the document is ready:
                 console.log(xhttp.responseText);
                 if(isNaN(parseInt(xhttp.responseText)) ){
                   console.log("No es un usuario en tu DB")
-                  alert("El usuario o contraseña que ingresaste no son correctos");
+                  Alert.alert(
+                    "error",
+                    "usuario o contraseña incorrectos",
+                    [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+                  );
                 }
                 else{
-                  navigation.navigate("PantallaInicio")
+                 // navigation.navigate("PantallaInicio", {paramKey: usrName,}) ERROR AL PASAR LA VARIABLE
+                 navigation.navigate("PantallaInicio")
                 }
             
             }
