@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, Button, Alert} from 'react-native';
 import { NavigationContext, useNavigation } from '@react-navigation/native';
-
+import { validateSQLInyection } from './validateSQLInyection';
 export default class Pantallalogin extends Component {
     static contextType = NavigationContext
   constructor(props) {
@@ -17,6 +17,15 @@ export default class Pantallalogin extends Component {
     const navigation = this.context
       //Programacion de los botones:
       const btnClick = () => {
+        if(!validateSQLInyection([this.state.usrName, this.state.passwd])){
+          console.log("Inyeccion Sql")
+                  Alert.alert(
+                    "error",
+                    "Inyeccion SQL",
+                    [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+                    );
+          return;
+        }
         console.log("Ingresando usuario")
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
