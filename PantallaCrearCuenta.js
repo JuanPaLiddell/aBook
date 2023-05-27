@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, TextInput, Alert } from 'react-native';
 import { NavigationContext, useNavigation } from '@react-navigation/native';
+import { validateSQLInyection } from './validateSQLInyection';
 
 export default class PantallaCrearCuenta extends Component {
     static contextType = NavigationContext
@@ -28,6 +29,15 @@ export default class PantallaCrearCuenta extends Component {
               [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             );
         }else{
+          if(!validateSQLInyection([this.state.nombre_completo, this.state.nombre_usuario, this.state.Contraseña,this.state.email,this.state.telefono])){
+            console.log("Inyeccion Sql")
+                    Alert.alert(
+                      "error",
+                      "Inyeccion SQL",
+                      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+                      );
+            return;
+          }
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
